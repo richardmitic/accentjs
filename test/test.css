@@ -1,0 +1,25 @@
+body {
+  font: 16px sans-serif;
+}
+
+.script-set {
+  width: 800px;
+}
+
+.script-set-header {
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+.character-set {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.cs-header {
+  margin-top: 1px;
+}
+
+.cs{
+  margin-top: 1px;
+}

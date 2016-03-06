@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="./test.css">
+    <script src="../build/accent.js"></script>
+    <script>    
+      function test(id, item) {
+        var p = document.getElementById(id);
+        p.innerHTML = item.join(' ');
+      }
+
+      document.addEventListener("DOMContentLoaded", function(event) {
+        var accent =  window.Accent;
+        test("cs-basic-latin", accent.latin.BasicLatin);
+        test("cs-latin-1-supplement", accent.latin.Latin1Supplement);
+        test("cs-latin-extended-a", accent.latin.LatinExtendedA);
+        test("cs-latin-extended-b", accent.latin.LatinExtendedB);
+        test("cs-latin-extended-c", accent.latin.LatinExtendedC);
+        test("cs-latin-extended-d", accent.latin.LatinExtendedD);
+        test("cs-latin-extended-e", accent.latin.LatinExtendedE);
+        test("cs-latin-extended-additional", accent.latin.LatinExtendedAdditional);
+      });
+    </script>
+  </head>
+  <body>
+    <div class="script-set">
+      <p class="script-set-header">Latin</p>
+      <div class="character-set">
+        <p class="cs-header">Basic Latin</p>
+        <p class="cs" id="cs-basic-latin">Error</p>
+      </div>
+      <div class="character-set">
+        <p class="cs-header">Latin-1 Supplement</p>
+        <p class="cs" id="cs-latin-1-supplement">Error</p>
+      </div>
+      <div class="character-set">
+        <p class="cs-header">Latin Extended-A</p>
+        <p class="cs" id="cs-latin-extended-a">Error</p>
+      </div>
+      <div class="character-set">
+        <p class="cs-header">Latin Extended-B</p>
+        <p class="cs" id="cs-latin-extended-b">Error</p>
+      </div>
+      <div class="character-set">
+        <p class="cs-header">Latin Extended-C</p>
+        <p class="cs" id="cs-latin-extended-c">Error</p>
+      </div>
+      <div class="character-set">
+        <p class="cs-header">Latin Extended-D</p>
+        <p class="cs" id="cs-latin-extended-d">Error</p>
+      </div>
+      <div class="character-set">
+        <p class="cs-header">Latin Extended-E</p>
+        <p class="cs" id="cs-latin-extended-e">Error</p>
+      </div>
+      <div class="character-set">
+        <p class="cs-header">Latin Extended Additional</p>
+        <p class="cs" id="cs-latin-extended-additional">Error</p>
+      </div>
+    </div>
+  </body>
+</html>
