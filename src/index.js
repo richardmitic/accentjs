@@ -3,9 +3,15 @@
   See http://unicode.org/charts/ for charts of all available unicode characters.
 */
 
+var randomItem = require('random-item');
+
 var latin = require('./latin.js')
 
+function randomCharFromSet(set) {
+  return randomItem(set);
+}
+
 module.exports = {
-  // Fill this in
-  latin: latin
+  latin: latin,
+  randomCharFromSet: randomCharFromSet
 };

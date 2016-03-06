@@ -26,5 +26,8 @@
     "watchify": "latest",
     "gulp": "latest",
     "vinyl-source-stream": "latest"
+  },
+  "dependencies": {
+    "random-item": "1.0.0"
   }
 }
