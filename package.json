@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/richardmitic/accentjs/issues"
   },
-  "homepage": "https://github.com/richardmitic/accentjs"
+  "homepage": "https://github.com/richardmitic/accentjs",
+  "devDependencies": {
+    "browserify": "latest",
+    "watchify": "latest",
+    "gulp": "latest",
+    "vinyl-source-stream": "latest"
+  }
 }
