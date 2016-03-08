@@ -8,7 +8,8 @@ module.exports = {
   LatinExtendedC: getLatinExtendedC(),
   LatinExtendedD: getLatinExtendedD(),
   LatinExtendedE: getLatinExtendedE(),
-  LatinExtendedAdditional: getLatinExtendedAdditional()
+  LatinExtendedAdditional: getLatinExtendedAdditional(),
+  IPAExtensions: getIpaExtensions()
 }
 
 /*
@@ -71,8 +72,16 @@ function getLatinExtendedE() {
 
 
 /*
-  Get only the valid characters for Latin Extended D
+  Get only the valid characters for Latin Extended Additional
 */
 function getLatinExtendedAdditional() {
   return util.rangeFromValues(0x1E00, 0x1EFF);
+}
+
+
+/*
+  Get valid characters for IPA Extensions
+*/
+function getIpaExtensions() {
+  return util.rangeFromValues(0x250, 0x2AF);
 }
