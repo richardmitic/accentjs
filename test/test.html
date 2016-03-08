@@ -3,24 +3,26 @@
     <link rel="stylesheet" href="./test.css">
     <script src="../build/accent.js"></script>
     <script>    
-      function test(id, item, randFunc) {
+      function test(id, item, randFunc, randArrayFunc) {
         var div = document.getElementById(id);
         var cs = div.querySelector(".cs");
         var rand = div.querySelector(".randchar");
+        var randstr = div.querySelector(".randstring");
         cs.innerHTML = item.join(' ');
         rand.innerHTML = randFunc(item);
+        randstr.innerHTML = randArrayFunc(item, 16).join('');
       }
 
       document.addEventListener("DOMContentLoaded", function(event) {
         var accent =  window.Accent;
-        test("cs-basic-latin", accent.latin.BasicLatin, accent.randomCharFromSet);
-        test("cs-latin-1-supplement", accent.latin.Latin1Supplement, accent.randomCharFromSet);
-        test("cs-latin-extended-a", accent.latin.LatinExtendedA, accent.randomCharFromSet);
-        test("cs-latin-extended-b", accent.latin.LatinExtendedB, accent.randomCharFromSet);
-        test("cs-latin-extended-c", accent.latin.LatinExtendedC, accent.randomCharFromSet);
-        test("cs-latin-extended-d", accent.latin.LatinExtendedD, accent.randomCharFromSet);
-        test("cs-latin-extended-e", accent.latin.LatinExtendedE, accent.randomCharFromSet);
-        test("cs-latin-extended-additional", accent.latin.LatinExtendedAdditional, accent.randomCharFromSet);
+        test("cs-basic-latin", accent.latin.BasicLatin, accent.randomChar, accent.randomCharArray);
+        test("cs-latin-1-supplement", accent.latin.Latin1Supplement, accent.randomChar, accent.randomCharArray);
+        test("cs-latin-extended-a", accent.latin.LatinExtendedA, accent.randomChar, accent.randomCharArray);
+        test("cs-latin-extended-b", accent.latin.LatinExtendedB, accent.randomChar, accent.randomCharArray);
+        test("cs-latin-extended-c", accent.latin.LatinExtendedC, accent.randomChar, accent.randomCharArray);
+        test("cs-latin-extended-d", accent.latin.LatinExtendedD, accent.randomChar, accent.randomCharArray);
+        test("cs-latin-extended-e", accent.latin.LatinExtendedE, accent.randomChar, accent.randomCharArray);
+        test("cs-latin-extended-additional", accent.latin.LatinExtendedAdditional, accent.randomChar, accent.randomCharArray);
       });
     </script>
   </head>
@@ -30,42 +32,42 @@
       <div class="character-set" id="cs-basic-latin">
         <p class="cs-header">Basic Latin</p>
         <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span></p>
+        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
       </div>
       <div class="character-set" id="cs-latin-1-supplement">
         <p class="cs-header">Latin-1 Supplement</p>
         <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span></p>
+        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
       </div>
       <div class="character-set" id="cs-latin-extended-a">
         <p class="cs-header">Latin Extended-A</p>
         <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span></p>
+        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
       </div>
       <div class="character-set" id="cs-latin-extended-b">
         <p class="cs-header">Latin Extended-B</p>
         <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span></p>
+        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
       </div>
       <div class="character-set" id="cs-latin-extended-c">
         <p class="cs-header">Latin Extended-C</p>
         <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span></p>
+        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
       </div>
       <div class="character-set" id="cs-latin-extended-d">
         <p class="cs-header">Latin Extended-D</p>
         <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span></p>
+        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
       </div>
       <div class="character-set" id="cs-latin-extended-e">
         <p class="cs-header">Latin Extended-E</p>
         <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span></p>
+        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
       </div>
       <div class="character-set" id="cs-latin-extended-additional">
         <p class="cs-header">Latin Extended Additional</p>
         <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span></p>
+        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
       </div>
     </div>
   </body>

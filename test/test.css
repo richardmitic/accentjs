@@ -23,3 +23,11 @@ body {
 .cs{
   margin-top: 1px;
 }
+
+.randchar {
+  padding-left: 6.18px;
+}
+
+.randstring {
+  padding-left: 6.18px;
+}
