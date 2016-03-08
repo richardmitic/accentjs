@@ -9,7 +9,9 @@ module.exports = {
   LatinExtendedD: getLatinExtendedD(),
   LatinExtendedE: getLatinExtendedE(),
   LatinExtendedAdditional: getLatinExtendedAdditional(),
-  IPAExtensions: getIpaExtensions()
+  IPAExtensions: getIpaExtensions(),
+  PhoneticExtensions: getPhoneticExtensions(),
+  PhoneticExtensionsSupplement: getPhoneticExtensionsSupplement()
 }
 
 /*
@@ -84,4 +86,20 @@ function getLatinExtendedAdditional() {
 */
 function getIpaExtensions() {
   return util.rangeFromValues(0x250, 0x2AF);
+}
+
+
+/*
+  Get valid characters for Phonetic Extensions
+*/
+function getPhoneticExtensions() {
+  return util.rangeFromValues(0x1D00, 0x1D7F);
+}
+
+
+/*
+  Get valid characters for Phonetic Extensions Supplement
+*/
+function getPhoneticExtensionsSupplement() {
+  return util.rangeFromValues(0x1D80, 0x1DBF);
 }
