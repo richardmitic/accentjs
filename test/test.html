@@ -1,5 +1,6 @@
 <html>
   <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="./test.css">
     <script src="../build/accent.js"></script>
     <script>
@@ -27,10 +28,18 @@
         test("cs-ipa-extensions", accent.latin.IPAExtensions);
         test("cs-phonetic-extensions", accent.latin.PhoneticExtensions);
         test("cs-phonetic-extensions-supplement", accent.latin.PhoneticExtensionsSupplement);
+        
+        var p = document.getElementById("accented-string");
+        var new_text = accent.alternativeString(p.innerHTML);
+        p.innerHTML = new_text;
       });
     </script>
   </head>
   <body>
+    <div class="script-set">
+      <p id="accented-string">hello world</p>
+    </div>
+    
     <div class="script-set">
       <p class="script-set-header">Latin</p>
       <div class="character-set" id="cs-basic-latin">
