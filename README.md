@@ -1,3 +1,10 @@
-# accentjs
+# accent.js
 
-http://ftp.unicode.org/Public/UNIDATA/UnicodeData.txt
+## Building
+```
+npm install
+gulp
+```
+
+## Testing
+[test/test.html](./test/test.html)
