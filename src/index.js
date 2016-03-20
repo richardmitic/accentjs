@@ -5,7 +5,7 @@
 
 var randomItem = require('random-item');
 var latin = require('./latin.js');
-var accentmap = require('./accentmap.json');
+var latinAccentMap = require('./maps/latin_accents.json');
 
 /*
   Get a random character from the given sets
@@ -31,7 +31,7 @@ function randomCharArray(set, n) {
   Get a character with an accent
 */
 function alternativeChar(c) {
-  return randomItem(accentmap[c]);
+  return randomItem(latinAccentMap[c]);
 }
 
 /*

@@ -25,9 +25,13 @@
     "browserify": "latest",
     "watchify": "latest",
     "gulp": "latest",
-    "vinyl-source-stream": "latest"
+    "vinyl-source-stream": "latest",
+    "file-extractor": "latest"
   },
   "dependencies": {
-    "random-item": "1.0.0"
+    "jsonfile": "2.2.3",
+    "q": "1.4.1",
+    "random-item": "1.0.0",
+    "string.fromcodepoint": "0.2.1"
   }
 }
