@@ -5,6 +5,7 @@
 
 var randomItem = require('random-item');
 var latin = require('./latin.js');
+var marks = require('./combining_marks.js');
 var latinAccentMap = require('./maps/latin_accents.json');
 
 /*
@@ -50,10 +51,33 @@ function alternativeString(s) {
   return out;
 }
 
+/*
+  Add an accent to a character using combining marks
+*/
+function alternativeComboChar(c, accent_set) {
+  var accent = randomItem(accent_set);
+  return c + accent;
+}
+
+/*
+  Add an accents to a character using combining marks
+*/
+function alternativeComboString(s, accent_set) {
+  var out = "";
+  for (var i = 0; i<s.length; i++) {
+    out += alternativeComboChar(s.charAt(i), accent_set);
+  }
+  return out;
+}
+
+
 module.exports = {
   latin: latin,
+  combiningMarks: marks,
   randomChar: randomChar,
   randomCharArray: randomCharArray,
   alternativeChar: alternativeChar,
-  alternativeString: alternativeString
+  alternativeString: alternativeString,
+  alternativeComboChar: alternativeComboChar,
+  alternativeComboString: alternativeComboString
 };

@@ -28,6 +28,10 @@ body {
   margin-top: 1px;
 }
 
+.double-line-spacing{
+  line-height: 200%;
+}
+
 .randchar {
   padding-left: 6.18px;
 }

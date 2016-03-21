@@ -15,6 +15,24 @@
         rand.innerHTML = accent.randomChar(item);
         randstr.innerHTML = accent.randomCharArray(item, 16).join('');
       }
+      
+      function test_combining_marks() {
+        var div = document.getElementById("cs-combining-marks");
+        var cs = div.querySelector(".cs");
+        var original_char = accent.randomChar(accent.latin.BasicLatin);
+        var accented_chars = [];
+        var accent_set = accent.combiningMarks.CombiningDiacriticalMarks;
+        for (var i = 0; i < accent_set.length; i++) {
+          var new_c = original_char+accent_set[i];
+          accented_chars.push(new_c);
+        }
+        cs.innerHTML = accented_chars.join(' ');
+        
+        var rand = div.querySelector(".randchar");
+        var randstr = div.querySelector(".randstring");
+        rand.innerHTML = accent.alternativeComboChar("Z", accent_set);
+        randstr.innerHTML = accent.alternativeComboString("Mississippi", accent_set);
+      }
 
       document.addEventListener("DOMContentLoaded", function(event) {
         test("cs-basic-latin", accent.latin.BasicLatin);
@@ -32,6 +50,8 @@
         var p = document.getElementById("accented-string");
         var new_text = accent.alternativeString(p.innerHTML);
         p.innerHTML = new_text;
+        
+        test_combining_marks();
       });
     </script>
   </head>
@@ -40,6 +60,15 @@
       <p class="script-set-header">Replacement</p>
       <div class="character-set">
         <p class="cs" id="accented-string">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz</p>
+      </div>
+    </div>
+    
+    <div class="script-set">
+      <p class="script-set-header">Combining marks</p>
+      <div class="character-set" id="cs-combining-marks">
+        <p class="cs-header">Random letter with accents</p>
+        <p class="cs double-line-spacing">Error</p>
+        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
       </div>
     </div>
     
@@ -101,5 +130,6 @@
         <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
       </div>
     </div>
+    
   </body>
 </html>
