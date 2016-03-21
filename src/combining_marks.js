@@ -24,9 +24,9 @@ function getCombiningDiacriticalMarksExtended() {
 /*
   Get supplement inflection marks
 */
-function getCombiningDiacriticalMarksSupplement()) {
+function getCombiningDiacriticalMarksSupplement() {
   var marks = util.rangeFromValues(0x1DC0, 0x1DF5);
-  marks = marks.concat(util.rangeFromValues(0x1DFC, 0x1DFF));
+  marks = marks.concat([0x1DFC, 0x1DFD, 0x1DFE, 0x1DFF]);
   return marks;
 }
 
@@ -34,5 +34,5 @@ function getCombiningDiacriticalMarksSupplement()) {
   Get extended inflection marks
 */
 function getCombiningHalfMarks() {
-  return util.rangeFromValues(0x1AB0, 0x1ABE);
+  return util.rangeFromValues(0xFE20, 0xFE2F);
 }

@@ -31,22 +31,27 @@
         document.getElementById(ss_div_id).appendChild(cs_div);
       }
       
-      function test_combining_marks() {
-        var div = document.getElementById("cs-combining-marks");
-        var cs = div.querySelector(".cs");
+      function test_combining_marks(ss_div_id, header, accent_set) {
+        console.log(accent_set);
+        var cs_div = newElement("div", "character-set");
+        var cs_header = newElement("p", "cs-header", null, header);
         var original_char = accent.randomChar(accent.latin.BasicLatin);
         var accented_chars = [];
-        var accent_set = accent.combiningMarks.CombiningDiacriticalMarks;
         for (var i = 0; i < accent_set.length; i++) {
           var new_c = original_char+accent_set[i];
           accented_chars.push(new_c);
         }
-        cs.innerHTML = accented_chars.join(' ');
+        cs = newElement("p", "cs double-line-spacing", null, accented_chars.join(' '));
+        var p_rand = newElement("p", "rand", null, "Random:");
+        span_randchar = newElement("span", "randchar", null, accent.alternativeComboChar("Z", accent_set));
+        span_randstring = newElement("span", "randstring", null, accent.alternativeComboString("Mississippi", accent_set));
+        p_rand.appendChild(span_randchar);
+        p_rand.appendChild(span_randstring);
         
-        var rand = div.querySelector(".randchar");
-        var randstr = div.querySelector(".randstring");
-        rand.innerHTML = accent.alternativeComboChar("Z", accent_set);
-        randstr.innerHTML = accent.alternativeComboString("Mississippi", accent_set);
+        cs_div.appendChild(cs_header);
+        cs_div.appendChild(cs);
+        cs_div.appendChild(p_rand);
+        document.getElementById(ss_div_id).appendChild(cs_div);
       }
 
       document.addEventListener("DOMContentLoaded", function(event) {
@@ -66,7 +71,14 @@
         var new_text = accent.alternativeString(p.innerHTML);
         p.innerHTML = new_text;
         
-        test_combining_marks();
+        test_combining_marks("combination-set", "Combining Diacritical Marks", 
+                             accent.combiningMarks.CombiningDiacriticalMarks);
+        test_combining_marks("combination-set", "Combining Diacritical Marks Extended",
+                             accent.combiningMarks.CombiningDiacriticalMarksExtended);
+        test_combining_marks("combination-set", "Combining Diacritical Marks Supplement",
+                             accent.combiningMarks.CombiningDiacriticalMarksSupplement);
+        test_combining_marks("combination-set", "Combining Half Marks",
+                             accent.combiningMarks.CombiningHalfMarks);
       });
     </script>
   </head>
@@ -78,13 +90,13 @@
       </div>
     </div>
     
-    <div class="script-set">
+    <div class="script-set" id="combination-set">
       <p class="script-set-header">Combining marks</p>
-      <div class="character-set" id="cs-combining-marks">
+      <!-- <div class="character-set" id="cs-combining-marks">
         <p class="cs-header">Random letter with accents</p>
         <p class="cs double-line-spacing">Error</p>
         <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
+      </div> -->
     </div>
     
     <div class="script-set" id="latin-set">
