@@ -5,15 +5,30 @@
     <script src="../build/accent.js"></script>
     <script>
       var accent =  window.Accent;
-    
-      function test(id, item, randFunc, randArrayFunc) {
-        var div = document.getElementById(id);
-        var cs = div.querySelector(".cs");
-        var rand = div.querySelector(".randchar");
-        var randstr = div.querySelector(".randstring");
-        cs.innerHTML = item.join(' ');
-        rand.innerHTML = accent.randomChar(item);
-        randstr.innerHTML = accent.randomCharArray(item, 16).join('');
+      
+      function newElement(type, className, id, innerHTML) {
+        var el = document.createElement(type);
+        if (className) { el.className = className }
+        if (id) { el.id = id }
+        if (innerHTML) { el.innerHTML = innerHTML }
+        return el;
+      }
+      
+      function test_character_set(ss_div_id, header, item) {
+        var cs_div = newElement("div", "character-set", null, null);
+        var cs_header = newElement("p", "cs-header", null, header);
+        var cs = newElement("p", "cs", null, item.join(' '));
+        
+        var p_rand = newElement("p", "rand", null, "Random:");
+        span_randchar = newElement("span", "randchar", null, accent.randomChar(item));
+        span_randstring = newElement("span", "randstring", null, accent.randomCharArray(item, 16).join(''));
+        p_rand.appendChild(span_randchar);
+        p_rand.appendChild(span_randstring);
+        
+        cs_div.appendChild(cs_header);
+        cs_div.appendChild(cs);
+        cs_div.appendChild(p_rand);
+        document.getElementById(ss_div_id).appendChild(cs_div);
       }
       
       function test_combining_marks() {
@@ -35,17 +50,17 @@
       }
 
       document.addEventListener("DOMContentLoaded", function(event) {
-        test("cs-basic-latin", accent.latin.BasicLatin);
-        test("cs-latin-1-supplement", accent.latin.Latin1Supplement);
-        test("cs-latin-extended-a", accent.latin.LatinExtendedA);
-        test("cs-latin-extended-b", accent.latin.LatinExtendedB);
-        test("cs-latin-extended-c", accent.latin.LatinExtendedC);
-        test("cs-latin-extended-d", accent.latin.LatinExtendedD);
-        test("cs-latin-extended-e", accent.latin.LatinExtendedE);
-        test("cs-latin-extended-additional", accent.latin.LatinExtendedAdditional);
-        test("cs-ipa-extensions", accent.latin.IPAExtensions);
-        test("cs-phonetic-extensions", accent.latin.PhoneticExtensions);
-        test("cs-phonetic-extensions-supplement", accent.latin.PhoneticExtensionsSupplement);
+        test_character_set("latin-set", "Basic Latin", accent.latin.BasicLatin);
+        test_character_set("latin-set", "Latin-1 Supplement", accent.latin.Latin1Supplement);
+        test_character_set("latin-set", "Latin Extended-A", accent.latin.LatinExtendedA);
+        test_character_set("latin-set", "Latin Extended-B", accent.latin.LatinExtendedB);
+        test_character_set("latin-set", "Latin Extended-C", accent.latin.LatinExtendedC);
+        test_character_set("latin-set", "Latin Extended-D", accent.latin.LatinExtendedD);
+        test_character_set("latin-set", "Latin Extended-E", accent.latin.LatinExtendedE);
+        test_character_set("latin-set", "Latin Extended Additional", accent.latin.LatinExtendedAdditional);
+        test_character_set("latin-set", "IPA Extensions", accent.latin.IPAExtensions);
+        test_character_set("latin-set", "Phonetic Extensions", accent.latin.PhoneticExtensions);
+        test_character_set("latin-set", "Phonetic Extensions Supplement", accent.latin.PhoneticExtensionsSupplement);
         
         var p = document.getElementById("accented-string");
         var new_text = accent.alternativeString(p.innerHTML);
@@ -72,63 +87,8 @@
       </div>
     </div>
     
-    <div class="script-set">
+    <div class="script-set" id="latin-set">
       <p class="script-set-header">Latin</p>
-      <div class="character-set" id="cs-basic-latin">
-        <p class="cs-header">Basic Latin</p>
-        <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
-      <div class="character-set" id="cs-latin-1-supplement">
-        <p class="cs-header">Latin-1 Supplement</p>
-        <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
-      <div class="character-set" id="cs-latin-extended-a">
-        <p class="cs-header">Latin Extended-A</p>
-        <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
-      <div class="character-set" id="cs-latin-extended-b">
-        <p class="cs-header">Latin Extended-B</p>
-        <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
-      <div class="character-set" id="cs-latin-extended-c">
-        <p class="cs-header">Latin Extended-C</p>
-        <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
-      <div class="character-set" id="cs-latin-extended-d">
-        <p class="cs-header">Latin Extended-D</p>
-        <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
-      <div class="character-set" id="cs-latin-extended-e">
-        <p class="cs-header">Latin Extended-E</p>
-        <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
-      <div class="character-set" id="cs-latin-extended-additional">
-        <p class="cs-header">Latin Extended Additional</p>
-        <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
-      <div class="character-set" id="cs-ipa-extensions">
-        <p class="cs-header">IPA Extensions</p>
-        <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
-      <div class="character-set" id="cs-phonetic-extensions">
-        <p class="cs-header">Phonetic Extensions</p>
-        <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
-      <div class="character-set" id="cs-phonetic-extensions-supplement">
-        <p class="cs-header">Phonetic Extensions Supplement</p>
-        <p class="cs">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div>
     </div>
     
   </body>
