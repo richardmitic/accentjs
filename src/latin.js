@@ -74,7 +74,7 @@ function lookupCharacterSet(c) {
   Get only the non-whitespace characters from Basic Latin
 */
 function getBasicLatin() {
-  return util.range('!', '~');
+  return util.rangeFromValues(0x21, 0x7E);
 }
 
 
