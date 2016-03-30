@@ -29,8 +29,8 @@ function capital_match(m) {
   if (!chrSet) {
     return
   }
-  ensure_char(m[2], chrSet.name, map);
-  map[chrSet.name][m[2]].push(chr);
+  ensure_char(m[2], chrSet, map);
+  map[chrSet][m[2]].push(chr);
 }
 
 function small_match(m) {
@@ -40,8 +40,8 @@ function small_match(m) {
   if (!chrSet) {
     return
   }
-  ensure_char(char, chrSet.name, map);
-  map[chrSet.name][char].push(chr);
+  ensure_char(char, chrSet, map);
+  map[chrSet][char].push(chr);
 }
 
 
