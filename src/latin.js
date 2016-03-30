@@ -74,7 +74,7 @@ function lookupCharacterSet(c) {
   Get only the non-whitespace characters from Basic Latin
 */
 function getBasicLatin() {
-  return util.rangeFromValues(0x21, 0x7E);
+  return util.range(0x21, 0x7E);
 }
 
 
@@ -82,7 +82,7 @@ function getBasicLatin() {
   Get characters for Latin 1 Supplement
 */
 function getLatin1Supplement() {
-  return util.rangeFromValues(0xA1, 0xFF);
+  return util.range(0xA1, 0xFF);
 }
 
 
@@ -90,7 +90,7 @@ function getLatin1Supplement() {
   Get valid characters for Latin Extended A
 */
 function getLatinExtendedA() {
-  return util.rangeFromValues(0x100, 0x17F);
+  return util.range(0x100, 0x17F);
 }
 
 
@@ -98,7 +98,7 @@ function getLatinExtendedA() {
   Get valid characters for Latin Extended B
 */
 function getLatinExtendedB() {
-  return util.rangeFromValues(0x180, 0x24F);
+  return util.range(0x180, 0x24F);
 }
 
 
@@ -106,7 +106,7 @@ function getLatinExtendedB() {
   Get valid characters for Latin Extended C
 */
 function getLatinExtendedC() {
-  return util.rangeFromValues(0x2C60, 0x2C7F);
+  return util.range(0x2C60, 0x2C7F);
 }
 
 
@@ -114,9 +114,9 @@ function getLatinExtendedC() {
   Get only the valid characters for Latin Extended D
 */
 function getLatinExtendedD() {
-  chars = util.rangeFromValues(0xA720, 0xA7AD);
-  chars = chars.concat(util.rangeFromValues(0xA7B0, 0xA7B7));
-  chars = chars.concat(util.rangeFromValues(0xA7F7, 0xA7FF));
+  chars = util.range(0xA720, 0xA7AD);
+  chars = chars.concat(util.range(0xA7B0, 0xA7B7));
+  chars = chars.concat(util.range(0xA7F7, 0xA7FF));
   return chars;
 }
 
@@ -125,7 +125,7 @@ function getLatinExtendedD() {
   Get only the valid characters for Latin Extended E
 */
 function getLatinExtendedE() {
-  return util.rangeFromValues(0xAB30, 0xAB65);
+  return util.range(0xAB30, 0xAB65);
 }
 
 
@@ -133,7 +133,7 @@ function getLatinExtendedE() {
   Get only the valid characters for Latin Extended Additional
 */
 function getLatinExtendedAdditional() {
-  return util.rangeFromValues(0x1E00, 0x1EFF);
+  return util.range(0x1E00, 0x1EFF);
 }
 
 
@@ -141,7 +141,7 @@ function getLatinExtendedAdditional() {
   Get valid characters for IPA Extensions
 */
 function getIpaExtensions() {
-  return util.rangeFromValues(0x250, 0x2AF);
+  return util.range(0x250, 0x2AF);
 }
 
 
@@ -149,7 +149,7 @@ function getIpaExtensions() {
   Get valid characters for Phonetic Extensions
 */
 function getPhoneticExtensions() {
-  return util.rangeFromValues(0x1D00, 0x1D7F);
+  return util.range(0x1D00, 0x1D7F);
 }
 
 
@@ -157,5 +157,5 @@ function getPhoneticExtensions() {
   Get valid characters for Phonetic Extensions Supplement
 */
 function getPhoneticExtensionsSupplement() {
-  return util.rangeFromValues(0x1D80, 0x1DBF);
+  return util.range(0x1D80, 0x1DBF);
 }
