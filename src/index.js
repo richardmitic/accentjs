@@ -4,6 +4,7 @@
 */
 
 var randomItem = require('random-item');
+var shuffle = require('knuth-shuffle').knuthShuffle;
 var latin = require('./latin.js');
 var marks = require('./combining_marks.js');
 var latinAccentMap = require('./maps/latin_accents.json');
@@ -31,19 +32,33 @@ function randomCharArray(set, n) {
 /*
   Get a character with an accent
 */
-function alternativeChar(c) {
-  return randomItem(latinAccentMap[c]);
+function alternativeChar(c, sets) {
+  // Create a copy of the sets and shuffle them.
+  // Work through the shuffled sets looking for characters.
+  var shuffled_sets = shuffle(sets.slice(0));
+  var out;
+  for (var i=0; i<shuffled_sets.length; i++) {
+    try {
+      out = randomItem(latinAccentMap[shuffled_sets[i]][c]);
+      break;
+    } catch(err) {
+      // continue
+    }
+  }
+  return out
 }
 
 /*
   Add accents to a string
 */
-function alternativeString(s) {
+function alternativeString(s, sets) {
   var out = "";
+  var alt;
   for (var i = 0; i<s.length; i++) {
-    try {
-      out += alternativeChar(s.charAt(i));
-    } catch (e) {
+    alt = alternativeChar(s.charAt(i), sets);
+    if (alt) {
+      out += alternativeChar(s.charAt(i), sets);
+    } else {
       // If there are no alternatives, use the original
       out += s.charAt(i);
     }

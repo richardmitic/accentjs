@@ -1,6 +1,6 @@
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
     <link rel="stylesheet" href="./test.css">
     <script src="../build/accent.js"></script>
     <script>
@@ -32,7 +32,6 @@
       }
       
       function test_combining_marks(ss_div_id, header, accent_set) {
-        console.log(accent_set);
         var cs_div = newElement("div", "character-set");
         var cs_header = newElement("p", "cs-header", null, header);
         var original_char = accent.randomChar(accent.latin.BasicLatin);
@@ -68,7 +67,17 @@
         test_character_set("latin-set", "Phonetic Extensions Supplement", accent.latin.PhoneticExtensionsSupplement);
         
         var p = document.getElementById("accented-string");
-        var new_text = accent.alternativeString(p.innerHTML);
+        var new_text = accent.alternativeString(p.innerHTML, ["BasicLatin",
+                                                              // "Latin1Supplement",
+                                                              // "LatinExtendedA",
+                                                              // "LatinExtendedB",
+                                                              // "LatinExtendedC",
+                                                              // "LatinExtendedD",
+                                                              // "LatinExtendedE",
+                                                              // "LatinExtendedAdditional",
+                                                              "IPAExtensions",
+                                                              "PhoneticExtensions",
+                                                              "PhoneticExtensionsSupplement"]);
         p.innerHTML = new_text;
         
         test_combining_marks("combination-set", "Combining Diacritical Marks", 
@@ -92,11 +101,6 @@
     
     <div class="script-set" id="combination-set">
       <p class="script-set-header">Combining marks</p>
-      <!-- <div class="character-set" id="cs-combining-marks">
-        <p class="cs-header">Random letter with accents</p>
-        <p class="cs double-line-spacing">Error</p>
-        <p class="rand"><span>Random:</span><span class="randchar"></span><span class="randstring"></span></p>
-      </div> -->
     </div>
     
     <div class="script-set" id="latin-set">

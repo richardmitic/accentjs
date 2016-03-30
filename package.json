@@ -28,9 +28,10 @@
     "vinyl-source-stream": "latest"
   },
   "dependencies": {
+    "file-extractor": "latest",
+    "knuth-shuffle": "1.0.1",
     "q": "1.4.1",
     "random-item": "1.0.0",
-    "string.fromcodepoint": "0.2.1",
-    "file-extractor": "latest"
+    "string.fromcodepoint": "0.2.1"
   }
 }
