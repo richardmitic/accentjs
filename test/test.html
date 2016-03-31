@@ -67,17 +67,18 @@
         test_character_set("latin-set", "Phonetic Extensions Supplement", accent.latin.PhoneticExtensionsSupplement);
         
         var p = document.getElementById("accented-string");
-        var new_text = accent.alternativeString(p.innerHTML, ["BasicLatin",
-                                                              // "Latin1Supplement",
-                                                              // "LatinExtendedA",
-                                                              // "LatinExtendedB",
-                                                              // "LatinExtendedC",
-                                                              // "LatinExtendedD",
-                                                              // "LatinExtendedE",
-                                                              // "LatinExtendedAdditional",
-                                                              "IPAExtensions",
-                                                              "PhoneticExtensions",
-                                                              "PhoneticExtensionsSupplement"]);
+        var chrSets = [
+          accent.latin.charSets.LATIN_EXTENDED_A,
+          accent.latin.charSets.LATIN_EXTENDED_B,
+          accent.latin.charSets.LATIN_EXTENDED_C,
+          // accent.latin.charSets.LATIN_EXTENDED_D,
+          // accent.latin.charSets.LATIN_EXTENDED_E,
+          accent.latin.charSets.LATIN_EXTENDED_ADDITIONAL,
+          accent.latin.charSets.IPA_EXTENSIONS,
+          accent.latin.charSets.PHONETIC_EXTENSIONS,
+          accent.latin.charSets.PHONETIC_EXTENSIONS_SUPPLEMENT
+        ];
+        var new_text = accent.alternativeString(p.innerHTML, chrSets);
         p.innerHTML = new_text;
         
         test_combining_marks("combination-set", "Combining Diacritical Marks", 

@@ -1,20 +1,5 @@
 var util = require('./util.js');
 
-module.exports = {
-  BasicLatin: getBasicLatin(),
-  Latin1Supplement: getLatin1Supplement(),
-  LatinExtendedA: getLatinExtendedA(),
-  LatinExtendedB: getLatinExtendedB(),
-  LatinExtendedC: getLatinExtendedC(),
-  LatinExtendedD: getLatinExtendedD(),
-  LatinExtendedE: getLatinExtendedE(),
-  LatinExtendedAdditional: getLatinExtendedAdditional(),
-  IPAExtensions: getIpaExtensions(),
-  PhoneticExtensions: getPhoneticExtensions(),
-  PhoneticExtensionsSupplement: getPhoneticExtensionsSupplement(),
-  lookupCharacterSet: lookupCharacterSet
-}
-
 /*
   Enumeration of the latin character sets
 */
@@ -159,3 +144,35 @@ function getPhoneticExtensions() {
 function getPhoneticExtensionsSupplement() {
   return util.range(0x1D80, 0x1DBF);
 }
+
+module.exports = {
+  BasicLatin: getBasicLatin(),
+  Latin1Supplement: getLatin1Supplement(),
+  LatinExtendedA: getLatinExtendedA(),
+  LatinExtendedB: getLatinExtendedB(),
+  LatinExtendedC: getLatinExtendedC(),
+  LatinExtendedD: getLatinExtendedD(),
+  LatinExtendedE: getLatinExtendedE(),
+  LatinExtendedAdditional: getLatinExtendedAdditional(),
+  IPAExtensions: getIpaExtensions(),
+  PhoneticExtensions: getPhoneticExtensions(),
+  PhoneticExtensionsSupplement: getPhoneticExtensionsSupplement(),
+  lookupCharacterSet: lookupCharacterSet,
+  charSets: CharacterSets
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
