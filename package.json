@@ -25,7 +25,8 @@
     "browserify": "latest",
     "watchify": "latest",
     "gulp": "latest",
-    "vinyl-source-stream": "latest"
+    "vinyl-source-stream": "latest",
+    "express": "^4.13.4"
   },
   "dependencies": {
     "file-extractor": "latest",

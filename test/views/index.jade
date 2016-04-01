@@ -1,0 +1,10 @@
+extend layout
+block content
+  each test in data.charSetTests
+    .character-set
+      p.cs-header
+        test.title
+      p.cs
+        | Text goes here
+      
+block sidebar
