@@ -1,10 +1,45 @@
 extend layout
 block content
-  each test in data.charSetTests
-    .character-set
-      p.cs-header
-        test.title
-      p.cs
-        | Text goes here
-      
+  .script-set
+    script(type='text/javascript').
+      document.addEventListener("DOMContentLoaded", function(event) {
+        var accent = window.Accent;
+        var p = document.getElementById("accented-string");
+        var chrSets = [
+          accent.latin.charSets.LATIN_EXTENDED_A,
+          accent.latin.charSets.LATIN_EXTENDED_B,
+          accent.latin.charSets.LATIN_EXTENDED_C,
+          // accent.latin.charSets.LATIN_EXTENDED_D,
+          // accent.latin.charSets.LATIN_EXTENDED_E,
+          accent.latin.charSets.LATIN_EXTENDED_ADDITIONAL,
+          accent.latin.charSets.IPA_EXTENSIONS,
+          accent.latin.charSets.PHONETIC_EXTENSIONS,
+          accent.latin.charSets.PHONETIC_EXTENSIONS_SUPPLEMENT
+        ];
+        var new_text = accent.alternativeString(p.innerHTML, chrSets);
+        p.innerHTML = new_text;
+      })
+    
+    p.script-set-header
+      | Replacement
+      .character-set
+        p#accented-string.cs
+          | ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+
+  .script-set
+    p.script-set-header
+      | Combining Marks
+    each test in data.combiningMarkTests
+      .character-set
+        p.cs-header= test.title
+        p.cs.double-line-spacing= test.characters
+
+  .script-set
+    p.script-set-header
+      | Latin
+    each test in data.charSetTests
+      .character-set
+        p.cs-header= test.title
+        p.cs= test.characters
+  
 block sidebar
