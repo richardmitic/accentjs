@@ -7,4 +7,6 @@ gulp
 ```
 
 ## Testing
+```node server```
+or
 [test/test.html](./test/test.html)
