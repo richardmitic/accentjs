@@ -7,14 +7,16 @@ block content
         var p = document.getElementById("accented-string");
         var chrSets = [
           accent.latin.charSets.LATIN_EXTENDED_A,
-          accent.latin.charSets.LATIN_EXTENDED_B,
-          accent.latin.charSets.LATIN_EXTENDED_C,
-          // accent.latin.charSets.LATIN_EXTENDED_D,
-          // accent.latin.charSets.LATIN_EXTENDED_E,
-          accent.latin.charSets.LATIN_EXTENDED_ADDITIONAL,
-          accent.latin.charSets.IPA_EXTENSIONS,
-          accent.latin.charSets.PHONETIC_EXTENSIONS,
-          accent.latin.charSets.PHONETIC_EXTENSIONS_SUPPLEMENT
+          //- accent.latin.charSets.LATIN_EXTENDED_B,
+          //- accent.latin.charSets.LATIN_EXTENDED_C,
+          //- accent.latin.charSets.LATIN_EXTENDED_D,
+          //- accent.latin.charSets.LATIN_EXTENDED_E,
+          //- accent.latin.charSets.LATIN_EXTENDED_ADDITIONAL,
+          //- accent.latin.charSets.IPA_EXTENSIONS,
+          //- accent.latin.charSets.PHONETIC_EXTENSIONS,
+          //- accent.latin.charSets.PHONETIC_EXTENSIONS_SUPPLEMENT,
+          accent.cyrillic.charSets.CYRILLIC,
+          //- accent.cyrillic.charSets.CYRILLIC_SUPPLEMENTARY,
         ];
         var new_text = accent.alternativeString(p.innerHTML, chrSets);
         p.innerHTML = new_text;

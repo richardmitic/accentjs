@@ -5,6 +5,7 @@ var express = require('express')
 var accent = require('../src/index')
 var url = require('url')
 
+var PORT = 3000
 
 var app = express()
 
@@ -40,7 +41,9 @@ var siteData = {
     accent.latin.LatinExtendedAdditional,
     accent.latin.IPAExtensions,
     accent.latin.PhoneticExtensions,
-    accent.latin.PhoneticExtensionsSupplement
+    accent.latin.PhoneticExtensionsSupplement,
+    accent.cyrillic.Cyrillic,
+    accent.cyrillic.CyrillicSupplementary,
   ],
   charSetTests:[
     {title: "Basic Latin", characters: accent.latin.BasicLatin.join(' ')},
@@ -53,7 +56,9 @@ var siteData = {
     {title: "Latin Extended Additional", characters: accent.latin.LatinExtendedAdditional.join(' ')},
     {title: "IPA Extensions", characters: accent.latin.IPAExtensions.join(' ')},
     {title: "Phonetic Extensions", characters: accent.latin.PhoneticExtensions.join(' ')},
-    {title: "Phonetic Extensions Supplement", characters: accent.latin.PhoneticExtensionsSupplement.join(' ')}
+    {title: "Phonetic Extensions Supplement", characters: accent.latin.PhoneticExtensionsSupplement.join(' ')},
+    {title: "Cyrillic", characters: accent.cyrillic.Cyrillic.join(' ')},
+    {title: "Cyrillic Supplementary", characters: accent.cyrillic.CyrillicSupplementary.join(' ')},
   ],
   combiningMarkTests: [
     test_combining_marks("Combining Diacritical Marks", accent.combiningMarks.CombiningDiacriticalMarks),
@@ -88,4 +93,4 @@ app.get('/albumart', function (req, res) {
 // })
 
 
-app.listen(3000)
+app.listen(PORT)

@@ -6,8 +6,20 @@
 var randomItem = require('random-item');
 var shuffle = require('knuth-shuffle').knuthShuffle;
 var latin = require('./latin.js');
+var cyrillic = require('./cyrillic.js');
 var marks = require('./combining_marks.js');
 var latinAccentMap = require('./maps/latin_accents.json');
+var cyrillicMap = require('./maps/cyrillic.json');
+
+function extend(obj, src) {
+    for (var key in src) {
+        if (src.hasOwnProperty(key)) obj[key] = src[key];
+    }
+    return obj;
+}
+
+var allMaps = extend(latinAccentMap, cyrillicMap);
+// console.log(allMaps)
 
 /*
   Get a random character from the given sets
@@ -39,7 +51,8 @@ function alternativeChar(c, sets) {
   var out;
   for (var i=0; i<shuffled_sets.length; i++) {
     try {
-      out = randomItem(latinAccentMap[shuffled_sets[i]][c]);
+      // out = randomItem(latinAccentMap[shuffled_sets[i]][c]);
+      out = randomItem(allMaps[shuffled_sets[i]][c]);
       break;
     } catch(err) {
       // continue
@@ -88,6 +101,7 @@ function alternativeComboString(s, accent_set) {
 
 module.exports = {
   latin: latin,
+  cyrillic: cyrillic,
   combiningMarks: marks,
   randomChar: randomChar,
   randomCharArray: randomCharArray,

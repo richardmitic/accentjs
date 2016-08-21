@@ -80,7 +80,65 @@ function getCombiningDiacriticalMarksSupplement() {
 function getCombiningHalfMarks() {
   return util.range(0xFE20, 0xFE2F);
 }
-},{"./util.js":7}],4:[function(require,module,exports){
+},{"./util.js":9}],4:[function(require,module,exports){
+var util = require('./util.js');
+
+/*
+  Enumeration of the latin character sets
+*/
+var CharacterSets = {
+  CYRILLIC:"Cyrillic",
+  CYRILLIC_SUPPLEMENTARY:"CyrillicSupplementary"
+}
+
+/*
+  Character set properties
+*/
+var CharacterSetProps = {}
+CharacterSetProps[CharacterSets.CYRILLIC] = {range: [0x400,0x4FF]}
+CharacterSetProps[CharacterSets.CYRILLIC_SUPPLEMENTARY] = {range: [0x500,0x52F]}
+
+if (Object.freeze) {
+  Object.freeze(CharacterSets);
+  Object.freeze(CharacterSetProps);
+} else {
+  console.warn("Cyrillic character set info not frozen");
+}
+
+/*
+  Look up the range that a character code belongs to
+*/
+function lookupCharacterSet(c) {
+  code = c.charCodeAt(0);
+  for (var key in CharacterSetProps) {
+    min = CharacterSetProps[key].range[0];
+    max = CharacterSetProps[key].range[1];
+    if (min <= code && code <= max)
+      return key;
+  }
+}
+
+/*
+  Get cyrillic characters without the pure accents
+*/
+function getCyrillic() {
+  chars = util.range(0x400, 0x482);
+  chars = chars.concat(util.range(0x48A, 0x4FF));
+  return chars;
+}
+
+function getCyrillicSupplementary() {
+  return util.range(0x500, 0x52F);
+}
+
+module.exports = {
+  Cyrillic: getCyrillic(),
+  CyrillicSupplementary: getCyrillicSupplementary(),
+  lookupCharacterSet: lookupCharacterSet,
+  charSets: CharacterSets
+}
+
+},{"./util.js":9}],5:[function(require,module,exports){
 /*
   Toolbox for creating and manipulating accented and alternative characters.
   See http://unicode.org/charts/ for charts of all available unicode characters.
@@ -89,8 +147,20 @@ function getCombiningHalfMarks() {
 var randomItem = require('random-item');
 var shuffle = require('knuth-shuffle').knuthShuffle;
 var latin = require('./latin.js');
+var cyrillic = require('./cyrillic.js');
 var marks = require('./combining_marks.js');
 var latinAccentMap = require('./maps/latin_accents.json');
+var cyrillicMap = require('./maps/cyrillic.json');
+
+function extend(obj, src) {
+    for (var key in src) {
+        if (src.hasOwnProperty(key)) obj[key] = src[key];
+    }
+    return obj;
+}
+
+var allMaps = extend(latinAccentMap, cyrillicMap);
+// console.log(allMaps)
 
 /*
   Get a random character from the given sets
@@ -122,7 +192,8 @@ function alternativeChar(c, sets) {
   var out;
   for (var i=0; i<shuffled_sets.length; i++) {
     try {
-      out = randomItem(latinAccentMap[shuffled_sets[i]][c]);
+      // out = randomItem(latinAccentMap[shuffled_sets[i]][c]);
+      out = randomItem(allMaps[shuffled_sets[i]][c]);
       break;
     } catch(err) {
       // continue
@@ -171,6 +242,7 @@ function alternativeComboString(s, accent_set) {
 
 module.exports = {
   latin: latin,
+  cyrillic: cyrillic,
   combiningMarks: marks,
   randomChar: randomChar,
   randomCharArray: randomCharArray,
@@ -180,7 +252,7 @@ module.exports = {
   alternativeComboString: alternativeComboString
 };
 
-},{"./combining_marks.js":3,"./latin.js":5,"./maps/latin_accents.json":6,"knuth-shuffle":1,"random-item":2}],5:[function(require,module,exports){
+},{"./combining_marks.js":3,"./cyrillic.js":4,"./latin.js":6,"./maps/cyrillic.json":7,"./maps/latin_accents.json":8,"knuth-shuffle":1,"random-item":2}],6:[function(require,module,exports){
 var util = require('./util.js');
 
 /*
@@ -360,9 +432,70 @@ module.exports = {
 
 
 
-},{"./util.js":7}],6:[function(require,module,exports){
+},{"./util.js":9}],7:[function(require,module,exports){
+module.exports={
+  "Cyrillic" : {
+    "unused" : "Љ З Л П Ы Ю з ы ю љ Ѥ ѥ Ѩ ѩ Ѯ ѯ Ѱ ѱ Ѹ ѹ Ѽ ѽ Ѿ ҂ Ҙ ҙ Ҧ ҧ Ҵ ҵ Ӆ ӆ Ӟ ӟ Ӹ ӹ",
+    "A" : ["А","Д","Ӑ","Ӓ","Ӕ","Ѧ","ѧ"],
+    "B" : ["В","в"],
+    "C" : ["С","Ҁ","Ҫ"],
+    "E" : ["Ѐ","Ё","Є","Е","Э","Ӗ","Ӭ"],
+    "F" : ["Ғ","Ӻ"],
+    "H" : ["Њ","Н","Ң","Ҥ","Ӈ","ӈ","Ӊ","ӊ"],
+    "I" : ["І","Ї","Ӏ"],
+    "J" : ["Ј"],
+    "K" : ["Ќ","К","Қ","Ҝ","Ҟ","Ҡ","Ӄ"],
+    "M" : ["М","Ӎ"],
+    "N" : ["Ѝ","И","Й","Ҋ","Ӣ","Ӥ"],
+    "O" : ["О","Ф","Ѳ","Ѻ","Ӧ","Ө","Ӫ"],
+    "P" : ["Р","Ҏ"],
+    "Q" : ["Ҩ"],
+    "R" : ["Я"],
+    "S" : ["Ѕ"],
+    "T" : ["Т","Ҭ"],
+    "U" : ["Џ","Ц"],
+    "V" : ["Ѵ","Ѷ"],
+    "W" : ["Ш","Щ"],
+    "X" : ["Ж","Х","Җ","Ҳ","Ӂ","Ӝ","Ӽ","Ӿ","Ѫ","Ѭ"],
+    "Y" : ["Ў","У","Ү","Ұ","Ӯ","Ӱ","Ӳ"],
+    "Z" : ["Ӡ"],
+    "a" : ["а","д","ҩ","ӑ","ӓ","ӕ"],
+    "b" : ["Б","Ъ","Ь","б","ъ","ь","Ѣ","ѣ","Ҍ","ҍ"],
+    "c" : ["с","ҁ","ҫ"],
+    "e" : ["ѐ","ё","є","е","э","ѐ","ё","є","Ҽ","ҽ","Ҿ","ҿ","ӗ","Ә","ә","Ӛ","ӛ","ӭ"],
+    "f" : ["ғ","ӻ"],
+    "h" : ["Ђ","Ч","Ћ","н","ч","ђ","њ","ћ","Ҕ","ҕ","ң","ҥ","Ҷ","ҷ","Ҹ","ҹ","Һ","һ"],
+    "i" : ["і","ї"],
+    "j" : ["ј"],
+    "k" : ["к","ќ","қ","ҝ","ҟ","ҡ","ӄ"],
+    "l" : ["ӏ"],
+    "m" : ["м","ӎ"],
+    "n" : ["и","й","ѝ","ҋ","ӣ","ӥ","л","п"],
+    "o" : ["о","ф","ѳ","ѻ","ӧ","ө","ӫ"],
+    "p" : ["р","ҏ"],
+    "r" : ["Ѓ","Г","г","я","ѓ","Ґ","ґ","Ӷ","ӷ"],
+    "s" : ["ѕ"],
+    "t" : ["т","ҭ"],
+    "u" : ["ц","џ"],
+    "v" : ["ѵ","ѷ"],
+    "w" : ["ш","щ","Ѡ","ѡ","ѿ"],
+    "x" : ["ж","х","җ","ҳ","ӂ","ӝ","ӽ","ӿ","ѫ","ѭ"],
+    "y" : ["у","ў","ү","ұ","Ӌ","ӌ","ӯ","ӱ","ӳ","Ӵ","ӵ"],
+    "z" : ["ӡ"]
+  },
+  "CyrillicSupplementary": {
+    "d" : ["Ԁ","ԁ","Ԃ","ԃ"],
+    "H" : ["Ԋ","ԋ"],
+    "G" : ["Ԍ","ԍ"],
+    "T" : ["Ԏ"],
+    "t" : ["ԏ"],
+    "E" : ["Ԑ"],
+    "e" : ["ԑ"]
+  }
+}
+},{}],8:[function(require,module,exports){
 module.exports={"Latin1Supplement":{"A":["À","Á","Â","Ã","Ä","Å"],"C":["Ç"],"E":["È","É","Ê","Ë"],"I":["Ì","Í","Î","Ï"],"N":["Ñ"],"O":["Ò","Ó","Ô","Õ","Ö","Ø"],"U":["Ù","Ú","Û","Ü"],"Y":["Ý"],"a":["à","á","â","ã","ä","å"],"c":["ç"],"e":["è","é","ê","ë"],"i":["ì","í","î","ï"],"n":["ñ"],"o":["ò","ó","ô","õ","ö","ø"],"u":["ù","ú","û","ü"],"y":["ý","ÿ"]},"LatinExtendedA":{"A":["Ā","Ă","Ą"],"a":["ā","ă","ą"],"C":["Ć","Ĉ","Ċ","Č"],"c":["ć","ĉ","ċ","č"],"D":["Ď","Đ"],"d":["ď","đ"],"E":["Ē","Ĕ","Ė","Ę","Ě"],"e":["ē","ĕ","ė","ę","ě"],"G":["Ĝ","Ğ","Ġ","Ģ"],"g":["ĝ","ğ","ġ","ģ"],"H":["Ĥ","Ħ"],"h":["ĥ","ħ"],"I":["Ĩ","Ī","Ĭ","Į","İ"],"i":["ĩ","ī","ĭ","į"],"J":["Ĵ"],"j":["ĵ"],"K":["Ķ"],"k":["ķ"],"L":["Ĺ","Ļ","Ľ","Ŀ","Ł"],"l":["ĺ","ļ","ľ","ŀ","ł"],"N":["Ń","Ņ","Ň"],"n":["ń","ņ","ň"],"O":["Ō","Ŏ","Ő"],"o":["ō","ŏ","ő"],"R":["Ŕ","Ŗ","Ř"],"r":["ŕ","ŗ","ř"],"S":["Ś","Ŝ","Ş","Š"],"s":["ś","ŝ","ş","š"],"T":["Ţ","Ť","Ŧ"],"t":["ţ","ť","ŧ"],"U":["Ũ","Ū","Ŭ","Ů","Ű","Ų"],"u":["ũ","ū","ŭ","ů","ű","ų"],"W":["Ŵ"],"w":["ŵ"],"Y":["Ŷ","Ÿ"],"y":["ŷ"],"Z":["Ź","Ż","Ž"],"z":["ź","ż","ž"]},"LatinExtendedB":{"b":["ƀ","ƃ"],"B":["Ɓ","Ƃ","Ƀ"],"C":["Ƈ","Ȼ"],"c":["ƈ","ȼ"],"D":["Ɗ","Ƌ"],"d":["ƌ","ƍ","ȡ"],"F":["Ƒ"],"f":["ƒ"],"G":["Ɠ","Ǥ","Ǧ","Ǵ"],"I":["Ɨ","Ǐ","Ȉ","Ȋ"],"K":["Ƙ","Ǩ"],"k":["ƙ","ǩ"],"l":["ƚ","ȴ"],"N":["Ɲ","Ǹ","Ƞ"],"n":["ƞ","ǹ","ȵ"],"O":["Ɵ","Ơ","Ǒ","Ǫ","Ǭ","Ǿ","Ȍ","Ȏ","Ȫ","Ȭ","Ȯ","Ȱ"],"o":["ơ","ǒ","ǫ","ǭ","ǿ","ȍ","ȏ","ȫ","ȭ","ȯ","ȱ"],"P":["Ƥ"],"p":["ƥ"],"t":["ƫ","ƭ","ț","ȶ"],"T":["Ƭ","Ʈ","Ț","Ⱦ"],"U":["Ư","Ǔ","Ǖ","Ǘ","Ǚ","Ǜ","Ȕ","Ȗ"],"u":["ư","ǔ","ǖ","ǘ","ǚ","ǜ","ȕ","ȗ"],"V":["Ʋ"],"Y":["Ƴ","Ȳ","Ɏ"],"y":["ƴ","ȳ","ɏ"],"Z":["Ƶ","Ȥ"],"z":["ƶ","ȥ","ɀ"],"A":["Ǎ","Ǟ","Ǡ","Ǻ","Ȁ","Ȃ","Ȧ","Ⱥ"],"a":["ǎ","ǟ","ǡ","ǻ","ȁ","ȃ","ȧ"],"i":["ǐ","ȉ","ȋ"],"e":["ǝ","ȅ","ȇ","ȩ","ɇ"],"g":["ǥ","ǧ","ǵ"],"j":["ǰ","ɉ"],"E":["Ȅ","Ȇ","Ȩ","Ɇ"],"R":["Ȑ","Ȓ","Ɍ"],"r":["ȑ","ȓ","ɍ"],"S":["Ș"],"s":["ș","ȿ"],"H":["Ȟ"],"h":["ȟ"],"L":["Ƚ"],"J":["Ɉ"],"q":["ɋ"]},"IPAExtensions":{"a":["ɐ","ɒ"],"b":["ɓ"],"c":["ɕ"],"d":["ɖ","ɗ"],"e":["ɘ"],"o":["ɜ","ɝ"],"g":["ɠ"],"h":["ɥ","ɦ","ʮ","ʯ"],"i":["ɨ"],"l":["ɫ","ɬ","ɭ"],"m":["ɯ","ɰ","ɱ"],"n":["ɲ","ɳ"],"r":["ɹ","ɺ","ɻ","ɼ","ɽ","ɾ","ɿ"],"s":["ʂ"],"t":["ʇ","ʈ"],"v":["ʋ","ʌ"],"w":["ʍ"],"y":["ʎ"],"z":["ʐ","ʑ"],"j":["ʝ"],"k":["ʞ"],"q":["ʠ"]},"PhoneticExtensions":{"a":["ᴂ"],"o":["ᴈ","ᴔ"],"i":["ᴉ"],"b":["ᵬ"],"d":["ᵭ"],"f":["ᵮ"],"m":["ᵯ"],"n":["ᵰ"],"p":["ᵱ","ᵽ"],"r":["ᵲ","ᵳ"],"s":["ᵴ"],"t":["ᵵ"],"z":["ᵶ"],"g":["ᵷ"]},"PhoneticExtensionsSupplement":{"b":["ᶀ"],"d":["ᶁ","ᶑ"],"f":["ᶂ"],"g":["ᶃ"],"k":["ᶄ"],"l":["ᶅ"],"m":["ᶆ"],"n":["ᶇ"],"p":["ᶈ"],"r":["ᶉ"],"s":["ᶊ"],"v":["ᶌ"],"x":["ᶍ"],"z":["ᶎ"],"a":["ᶏ"],"e":["ᶒ"],"o":["ᶔ"],"i":["ᶖ"],"u":["ᶙ"]},"LatinExtendedAdditional":{"A":["Ḁ","Ạ","Ả","Ấ","Ầ","Ẩ","Ẫ","Ậ","Ắ","Ằ","Ẳ","Ẵ","Ặ"],"a":["ḁ","ẚ","ạ","ả","ấ","ầ","ẩ","ẫ","ậ","ắ","ằ","ẳ","ẵ","ặ"],"B":["Ḃ","Ḅ","Ḇ"],"b":["ḃ","ḅ","ḇ"],"C":["Ḉ"],"c":["ḉ"],"D":["Ḋ","Ḍ","Ḏ","Ḑ","Ḓ"],"d":["ḋ","ḍ","ḏ","ḑ","ḓ"],"E":["Ḕ","Ḗ","Ḙ","Ḛ","Ḝ","Ẹ","Ẻ","Ẽ","Ế","Ề","Ể","Ễ","Ệ"],"e":["ḕ","ḗ","ḙ","ḛ","ḝ","ẹ","ẻ","ẽ","ế","ề","ể","ễ","ệ"],"F":["Ḟ"],"f":["ḟ"],"G":["Ḡ"],"g":["ḡ"],"H":["Ḣ","Ḥ","Ḧ","Ḩ","Ḫ"],"h":["ḣ","ḥ","ḧ","ḩ","ḫ","ẖ"],"I":["Ḭ","Ḯ","Ỉ","Ị"],"i":["ḭ","ḯ","ỉ","ị"],"K":["Ḱ","Ḳ","Ḵ"],"k":["ḱ","ḳ","ḵ"],"L":["Ḷ","Ḹ","Ḻ","Ḽ"],"l":["ḷ","ḹ","ḻ","ḽ"],"M":["Ḿ","Ṁ","Ṃ"],"m":["ḿ","ṁ","ṃ"],"N":["Ṅ","Ṇ","Ṉ","Ṋ"],"n":["ṅ","ṇ","ṉ","ṋ"],"O":["Ṍ","Ṏ","Ṑ","Ṓ","Ọ","Ỏ","Ố","Ồ","Ổ","Ỗ","Ộ","Ớ","Ờ","Ở","Ỡ","Ợ"],"o":["ṍ","ṏ","ṑ","ṓ","ọ","ỏ","ố","ồ","ổ","ỗ","ộ","ớ","ờ","ở","ỡ","ợ"],"P":["Ṕ","Ṗ"],"p":["ṕ","ṗ"],"R":["Ṙ","Ṛ","Ṝ","Ṟ"],"r":["ṙ","ṛ","ṝ","ṟ"],"S":["Ṡ","Ṣ","Ṥ","Ṧ","Ṩ"],"s":["ṡ","ṣ","ṥ","ṧ","ṩ"],"T":["Ṫ","Ṭ","Ṯ","Ṱ"],"t":["ṫ","ṭ","ṯ","ṱ","ẗ"],"U":["Ṳ","Ṵ","Ṷ","Ṹ","Ṻ","Ụ","Ủ","Ứ","Ừ","Ử","Ữ","Ự"],"u":["ṳ","ṵ","ṷ","ṹ","ṻ","ụ","ủ","ứ","ừ","ử","ữ","ự"],"V":["Ṽ","Ṿ"],"v":["ṽ","ṿ"],"W":["Ẁ","Ẃ","Ẅ","Ẇ","Ẉ"],"w":["ẁ","ẃ","ẅ","ẇ","ẉ","ẘ"],"X":["Ẋ","Ẍ"],"x":["ẋ","ẍ"],"Y":["Ẏ","Ỳ","Ỵ","Ỷ","Ỹ","Ỿ"],"y":["ẏ","ẙ","ỳ","ỵ","ỷ","ỹ","ỿ"],"Z":["Ẑ","Ẓ","Ẕ"],"z":["ẑ","ẓ","ẕ"]},"LatinExtendedC":{"L":["Ⱡ","Ɫ"],"l":["ⱡ"],"P":["Ᵽ"],"R":["Ɽ"],"a":["ⱥ"],"t":["ⱦ"],"H":["Ⱨ"],"h":["ⱨ"],"K":["Ⱪ"],"k":["ⱪ"],"Z":["Ⱬ","Ɀ"],"z":["ⱬ"],"M":["Ɱ"],"v":["ⱱ","ⱴ"],"W":["Ⱳ"],"w":["ⱳ"],"e":["ⱸ"],"r":["ⱹ"],"o":["ⱺ"],"S":["Ȿ"]},"LatinExtendedD":{"c":["ꜿ","ꞓ","ꞔ"],"K":["Ꝁ","Ꝃ","Ꝅ","Ꞣ"],"k":["ꝁ","ꝃ","ꝅ","ꞣ"],"L":["Ꝉ","Ɬ"],"l":["ꝉ","ꞁ","ꞎ"],"O":["Ꝋ","Ꝍ"],"o":["ꝋ","ꝍ"],"P":["Ꝑ","Ꝓ","Ꝕ"],"p":["ꝑ","ꝓ","ꝕ"],"Q":["Ꝗ","Ꝙ"],"q":["ꝗ","ꝙ"],"V":["Ꝟ"],"v":["ꝟ"],"i":["ꝿ"],"N":["Ꞑ","Ꞥ"],"n":["ꞑ","ꞥ"],"C":["Ꞓ"],"h":["ꞕ"],"B":["Ꞗ"],"b":["ꞗ"],"F":["Ꞙ"],"f":["ꞙ"],"G":["Ꞡ"],"g":["ꞡ"],"R":["Ꞧ"],"r":["ꞧ"],"S":["Ꞩ"],"s":["ꞩ"],"H":["Ɦ"],"J":["Ʝ"]},"LatinExtendedE":{"e":["ꬴ"],"l":["ꬷ","ꬸ","ꬹ"],"m":["ꬺ"],"n":["ꬻ"],"o":["ꭁ","ꭂ","ꭃ","ꭄ"],"r":["ꭇ","ꭉ"],"u":["ꭎ","ꭑ","ꭒ"],"x":["ꭖ","ꭗ","ꭘ","ꭙ"],"y":["ꭚ"]}}
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports = {
   range: range
 }
@@ -378,5 +511,5 @@ function range(start,stop) {
   }
   return result;
 };
-},{}]},{},[4])(4)
+},{}]},{},[5])(5)
 });
