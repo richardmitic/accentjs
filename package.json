@@ -23,10 +23,11 @@
   "homepage": "https://github.com/richardmitic/accentjs",
   "devDependencies": {
     "browserify": "latest",
-    "watchify": "latest",
+    "express": "^4.13.4",
     "gulp": "latest",
+    "gulp-nodemon": "2.0.6",
     "vinyl-source-stream": "latest",
-    "express": "^4.13.4"
+    "watchify": "latest"
   },
   "dependencies": {
     "file-extractor": "latest",

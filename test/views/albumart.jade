@@ -1,0 +1,84 @@
+doctype
+html
+  head
+    title #{title} - My Site
+    link(rel='stylesheet', href='/stylesheets/albumart.css')
+    script(src="/js/accent.js")
+    script(src="/js/albumart.js")
+    script.
+      document.addEventListener("DOMContentLoaded", function(event) {
+        var getChar = function() {
+          return window.Accent.randomChar(window.Accent.latin.LatinExtendedB)
+        }
+        
+        var chardivs = document.getElementsByClassName('artwork-char')
+        
+        var albumChars = getParameterByName("album").split('')
+        var albumNameStart = parseInt(getParameterByName("albumstart"))
+        var albumNameEnd = albumNameStart + albumChars.length
+        
+        var artistChars = getParameterByName("artist").split('')
+        var artistNameStart = parseInt(getParameterByName("artiststart"))
+        var artistNameEnd = artistNameStart + artistChars.length
+                        
+        for (var i = 0; i < chardivs.length; i++) {
+          if (i>=albumNameStart && i<albumNameEnd) {
+            chardivs[i].innerHTML = albumChars[i-albumNameStart]
+            random_opacity(chardivs[i], 0.5, 0.7)
+          }
+          else if (i>=artistNameStart && i<artistNameEnd) {
+            chardivs[i].innerHTML = artistChars[i-artistNameStart]
+            random_opacity(chardivs[i], 0.5, 0.7)
+          }
+          else {
+            var min = parseFloat(getParameterByName("shademin"))
+            var max = parseFloat(getParameterByName("shademax"))
+            chardivs[i].innerHTML = getChar()
+            random_opacity(chardivs[i], min, max)
+          }
+        }
+      })
+  body
+    .main-content
+      .controls
+        form(name="album-controls", action="/albumart", method="get")
+          .control-line
+            span.control-label
+              | Album name:
+            input(type="text", name="album" value=data.queryparams.album)
+          .control-line
+            span.control-label
+              | Artist:
+            input(type="text", name="artist" value=data.queryparams.artist)
+          .control-line
+            span.control-label
+              | Spread:
+            input(type="number", name="spread" min="1" max="20" value=data.queryparams.spread)
+          .control-line
+            span.control-label
+              | Size:
+            input(type="number", name="size" min="1" max="100" value=data.queryparams.size)
+          .control-line
+            span.control-label
+              | Shade range:
+            input(type="number", name="shademin" min="0" max="1" step="0.01" value=data.queryparams.shademin)
+            input(type="number", name="shademax" min="0" max="1" step="0.01" value=data.queryparams.shademax)
+          .control-line
+            span.control-label
+              | Album name position:
+            input(type="number", name="albumstart" value=data.queryparams.albumstart)
+          .control-line
+            span.control-label
+              | Artist name position:
+            input(type="number", name="artiststart" value=data.queryparams.artiststart)
+          .control-line
+            input(type="submit", value="go")
+      .artwork
+        - var max_i = data.queryparams.size;
+        - var max_j = data.queryparams.size;
+        - var size = data.queryparams.spread;
+        - for (var j = 0; j < max_j; j++) {
+          - for (var i = 0; i < max_i; i++) {
+            div.artwork-char(id= i+"-"+j style="top:"+j*size+"px; left:"+i*size+"px;")
+          - } 
+        - } 

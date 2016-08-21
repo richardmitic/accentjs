@@ -67,6 +67,19 @@ app.get('/', function (req, res) {
   res.render('index', { title : 'Home', data:siteData})
 })
 
+
+function getACharacter() {
+  accent.latin.randomChar(accent.latin.LatinExtendedB)
+}
+
+app.get('/albumart', function (req, res) {
+  data = {
+    queryparams:req.query,
+    getChar: getACharacter
+  }
+  res.render('albumart', {title:'Album Art', data:data})
+})
+
 // app.get('/replacements', function (req, res) {
 //   var parts = url.parse(req.url, true);
 //   var sets = JSON.parse(parts.query.sets);

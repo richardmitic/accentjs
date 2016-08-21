@@ -1,6 +1,7 @@
 var browserify = require('browserify'),
     // watchify = require('watchify'),
     gulp = require('gulp'),
+    nodemon = require('gulp-nodemon'),
     source = require('vinyl-source-stream'),
     child_process = require('child_process'),
     sourceFile = './src/index.js',
@@ -31,6 +32,14 @@ gulp.task('server', function(cb) {
 	   console.log(stderr);
 	   cb(err);
   });
+})
+
+gulp.task('watchserver', function () {
+  nodemon({
+    script: 'test/app.js'
+  , ext: 'js html jade css'
+  , env: { 'NODE_ENV': 'development' }
+  })
 })
 
 // gulp.task('watch', function() {

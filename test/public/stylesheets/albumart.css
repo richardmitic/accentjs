@@ -1,0 +1,23 @@
+
+
+.artwork {
+  width: auto;
+  height: auto;
+  background-color: #eeeeee;
+  position: relative;
+  /*font-family: ariel, sans-serif;*/
+  font-family: monospace;
+}
+
+.artwork-line {
+  
+}
+
+.artwork-char {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 10px;
+}
